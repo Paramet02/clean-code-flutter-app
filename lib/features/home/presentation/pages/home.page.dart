@@ -1,5 +1,6 @@
 import 'package:clean_code_flutter/features/home/presentation/widgets/categorries.card.dart';
-import 'package:clean_code_flutter/features/home/presentation/widgets/header.card.dart'; // [FIXED] ตรวจสอบ path ไฟล์ให้ถูกต้อง
+import 'package:clean_code_flutter/features/home/presentation/widgets/header.card.dart';
+import 'package:clean_code_flutter/features/home/presentation/widgets/restaurant.card.dart'; 
 import 'package:clean_code_flutter/features/home/presentation/widgets/search.card.dart';
 import 'package:clean_code_flutter/features/home/presentation/widgets/sectionheader.card.dart';
 import 'package:flutter/material.dart';
@@ -58,14 +59,15 @@ class _HomePageState extends State<HomePage> {
             CategorriesCard(),
 
             // Open Restaurants Card
-            SizedBox(height: 30),
+            SizedBox(height: 20),
             SectionHeaderCard(
               label: 'Open Restaurants',
               onViewAll: () {
                 // Handle view all open restaurants
               },
             ),
-
+            SizedBox(height: 30),
+            RestaurantCard()
             
           ],
         ),

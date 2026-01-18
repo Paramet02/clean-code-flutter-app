@@ -27,13 +27,13 @@ class _CategorriesCardState extends State<CategorriesCard> {
         itemCount: categories.length,
         separatorBuilder: (context, index) => SizedBox(width: 10),
         itemBuilder: (context, index) {
-          final category = categories[index];
-          final isSelected = index == selectedIndex;
+          final category = categories[index]; // ดึงข้อมูล category ปัจจุบัน
+          final isSelected = index == selectedIndex; // ตรวจสอบว่าเป็น category ที่ถูกเลือกหรือไม่
 
           return GestureDetector(
             onTap: () {
               setState(() {
-                selectedIndex = index;
+                selectedIndex = index; // อัพเดต selectedIndex เมื่อมีการแตะ
               });
             },
             child: Container(
