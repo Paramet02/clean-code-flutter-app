@@ -25,12 +25,43 @@ class RestaurantCard extends StatelessWidget {
             // รูปภาพร้านอาหาร
             ClipRRect(
               borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-              child: Image.network(
-                networkImage!,
-                height: 150,
-                width: double.infinity,
-                fit: BoxFit.cover,
-              ),
+              child: networkImage != null
+                  ? Image.network(
+                      networkImage!,
+                      height: 150,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return Container(
+                          height: 150,
+                          width: double.infinity,
+                          color: Colors.grey[200],
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              value: loadingProgress.expectedTotalBytes != null
+                                  ? loadingProgress.cumulativeBytesLoaded /
+                                      loadingProgress.expectedTotalBytes!
+                                  : null,
+                            ),
+                          ),
+                        );
+                      },
+                      errorBuilder: (context, error, stackTrace) {
+                        return Container(
+                          height: 150,
+                          width: double.infinity,
+                          color: Colors.grey[200],
+                          child: Icon(Icons.broken_image, color: Colors.grey, size: 48),
+                        );
+                      },
+                    )
+                  : Container(
+                      height: 150,
+                      width: double.infinity,
+                      color: Colors.grey[200],
+                      child: Icon(Icons.restaurant, color: Colors.grey, size: 48),
+                    ),
             ),
             Padding(
               padding: const EdgeInsets.all(12.0),
@@ -39,13 +70,13 @@ class RestaurantCard extends StatelessWidget {
                 children: [
                   // ชื่อร้านอาหาร
                   Text(
-                    name!,
+                    name ?? '-',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 6),
                   // คำอธิบายสั้น ๆ
                   Text(
-                    description!,
+                    description ?? '-',
                     style: TextStyle(fontSize: 14, color: Colors.grey[600]),
                   ),
                   SizedBox(height: 10),
